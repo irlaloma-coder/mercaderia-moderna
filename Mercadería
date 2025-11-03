@@ -1,0 +1,98 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    // Declaración de variables y constantes
+    const int MAX_PRODUCTOS = 5;
+    int opcion;
+    int cantidad[MAX_PRODUCTOS];
+    float precio[MAX_PRODUCTOS];
+    char nombre[MAX_PRODUCTOS][50];
+    
+    // Inicialización de inventario
+    strcpy(nombre[0], "Laptop");
+    precio[0] = 1200.50;
+    cantidad[0] = 10;
+
+    strcpy(nombre[1], "Mouse");
+    precio[1] = 25.99;
+    cantidad[1] = 50;
+
+    strcpy(nombre[2], "Teclado");
+    precio[2] = 45.00;
+    cantidad[2] = 30;
+
+    strcpy(nombre[3], "Monitor");
+    precio[3] = 300.75;
+    cantidad[3] = 20;
+
+    strcpy(nombre[4], "Impresora");
+    precio[4] = 150.00;
+    cantidad[4] = 15;
+
+    do {
+        printf("\n--- MERCADERÍAS MODERNAS: GESTIÓN DE INVENTARIO ---\n");
+        printf("1. Mostrar inventario\n");
+        printf("2. Registrar venta\n");
+        printf("3. Actualizar precio\n");
+        printf("4. Salir\n");
+        printf("Seleccione una opción: ");
+        scanf("%d", &opcion);
+
+        switch(opcion) {
+            case 1:
+                printf("\n--- INVENTARIO ---\n");
+                for(int i=0; i<MAX_PRODUCTOS; i++) {
+                    printf("%d. %s - Cantidad: %d | Precio: $%.2f\n",
+                           i+1, nombre[i], cantidad[i], precio[i]);
+                }
+                break;
+
+            case 2:
+                int prod, vta;
+                printf("Ingrese el número del producto (1-%d): ", MAX_PRODUCTOS);
+                scanf("%d", &prod);
+                if(prod < 1 || prod > MAX_PRODUCTOS) {
+                    printf("Producto inválido.\n");
+                    break;
+                }
+                printf("Ingrese la cantidad vendida: ");
+                scanf("%d", &vta);
+                if(vta > cantidad[prod-1]) {
+                    printf("No hay suficiente inventario.\n");
+                } else {
+                    cantidad[prod-1] -= vta;
+                    printf("Venta registrada. Nuevo stock de %s: %d\n", nombre[prod-1], cantidad[prod-1]);
+                }
+                break;
+
+            case 3:
+                int prodP;
+                float nuevoPrecio;
+                printf("Ingrese el número del producto a actualizar (1-%d): ", MAX_PRODUCTOS);
+                scanf("%d", &prodP);
+                if(prodP < 1 || prodP > MAX_PRODUCTOS) {
+                    printf("Producto inválido.\n");
+                    break;
+                }
+                printf("Ingrese el nuevo precio: ");
+                scanf("%f", &nuevoPrecio);
+                if(nuevoPrecio <= 0) {
+                    printf("Precio inválido.\n");
+                } else {
+                    precio[prodP-1] = nuevoPrecio;
+                    printf("Precio actualizado de %s: $%.2f\n", nombre[prodP-1], precio[prodP-1]);
+                }
+                break;
+
+            case 4:
+                printf("Saliendo del sistema...\n");
+                break;
+
+            default:
+                printf("Opción no válida.\n");
+        }
+    } while(opcion != 4);
+
+    return 0;
+}
