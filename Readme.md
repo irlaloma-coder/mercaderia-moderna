@@ -1,9 +1,5 @@
 # Mercaderías Modernas – Gestión de Inventario en C
 
-## Licenciatura: Ingeniería Robótica  
-## Asignatura: Programación 1  
-## Unidad: U03 Sentencias de control  
-
 ---
 
 ## Descripción del Proyecto
